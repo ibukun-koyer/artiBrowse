@@ -1,0 +1,33 @@
+<nav>
+    <span class="pageTitle">artibrowse</span>
+    <span><a href="/">My Profile</a></span>
+    <span><a href="/create_post">Create New Article</a></span>
+    <span><a href="#">View Posts</a></span>
+
+    <form action="/search_name" method="GET">
+        <input type="text" name="search_by_name" placeholder="Discover by username..." class="textarea noPad">
+    </form>
+    <form action="/search_arti" method="GET">
+        <input type="text" name="search_by_name" placeholder="Discover by article name.." class="textarea noPad">
+    </form>
+
+    <span class="fas fa-bars">
+        <div class="bars">
+            <%if (authenticate===false){%>
+                <a href="#">
+                    <div>login</div>
+                </a>
+                <a href="#">
+                    <div>Register</div>
+                </a>
+                <%}%>
+                    <%if (authenticate===true){%>
+                        <a href="/logout">
+                            <div>log out</div>
+                        </a>
+                        <%}%>
+
+
+        </div>
+    </span>
+</nav>

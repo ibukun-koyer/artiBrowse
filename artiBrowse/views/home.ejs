@@ -1,0 +1,66 @@
+<%layout("boiler")%>
+    <div class="backdrop"></div>
+    <main>
+        <%-include("nav")%>
+            <!--start of the actual home page -->
+            <%if (fail.length!==0){%>
+                <div class="errorFlash maxWidth">
+                    <i class="fa fa-times red-color "></i>
+                    <div>
+                        <%=fail%>
+                    </div>
+
+                </div>
+                <%}%>
+                    <section class="profile">
+                        <div class="imageHolder">
+                            <img src=<%=user.cropGetFace%>>
+
+                        </div>
+                    </section>
+
+                    <section class="userInfo">
+                        <div class="username">
+                            <%=user.username%>
+                        </div>
+                        <div class="followers">
+                            <span class="follow">
+                                <%=user.followers%> followers
+                            </span>
+                            <span class="follow">
+                                <%=user.following%> following
+                            </span>
+                        </div>
+                        <p class="quote">
+                            <sup><i class="fa fa-quote-left" aria-hidden="true"></i></sup>
+                            <span class="myQuote"><i>
+                                    <%=user.quote%>
+                                </i></span>
+                            <sup><i class="fa fa-quote-right" aria-hidden="true"></i></sup>
+                        </p>
+
+                    </section>
+
+
+                    <section class="editOptions">
+                        <div class="flex">
+                            <form action="/update_pp" method="POST"><button class="profileEdit"
+                                    name="edit_profile_picture">Edit
+                                    Profile
+                                    picture</button></form>
+                            <form action="/update_username" method="POST"><button class="profileEdit"
+                                    name="edit_username">Edit
+                                    username</button>
+                            </form>
+                            <form action="/update_quote" method="POST"><button class="profileEdit"
+                                    name="edit_quote">Edit
+                                    Quote</button></form>
+                            <form action="#" method="POST"><button class="profileEdit" name="show_following">See
+                                    Following
+                                    List</button></form>
+                            <form action="#" method="POST"><button class="profileEdit" name="show_followers">See
+                                    Followers
+                                    List</button></form>
+                        </div>
+                    </section>
+    </main>

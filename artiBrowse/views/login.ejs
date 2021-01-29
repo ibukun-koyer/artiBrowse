@@ -1,0 +1,51 @@
+<%layout("boiler")%>
+
+    <main class="full">
+        <div class="bkgImg"> </div>
+        <div class="afterBkg">
+            <%if (error!==undefined){%>
+                <div class="errorFlash">
+                    <i class="fa fa-times red-color "></i>
+                    <div>
+                        <%=error%>
+                    </div>
+
+                </div>
+                <%}%>
+                    <div class="pageTitle">artibrowse</div>
+
+                    <section class="centered">
+                        <div class="log-text">Log in to artibrowse</div>
+                        <form method=POST action="/login">
+                            <div class="fb">
+                                <input type="text" name="username" class="textarea" placeholder="Username">
+                                <div>
+                                    <div class="fas fa-caret-down show"></div>
+
+
+                                </div>
+                            </div>
+
+                            <div class="fb">
+                                <input type="password" name="password" class="textarea" placeholder="Password">
+                                <div>
+                                    <div class="fas fa-caret-down show"></div>
+
+                                </div>
+                            </div>
+
+                            <div class="btn">
+                                <button>login</button>
+                            </div>
+                        </form>
+                        <div class="log-text">or</div>
+                        <form method=GET action="/register">
+                            <div class="btn">
+                                <button>Register</button>
+                            </div>
+                        </form>
+
+                    </section>
+        </div>
+
+    </main>

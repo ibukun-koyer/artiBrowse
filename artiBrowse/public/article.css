@@ -1,0 +1,133 @@
+.gradientBkg{
+    width:100vw;
+    height:100vh;
+    background-image: linear-gradient(180deg, black, white);
+}
+.textDecor{
+    color:white;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 900;
+    font-size: 3rem;
+    margin:1rem;
+    margin-right:0;
+}
+.templateContainer{
+    width:100vw;
+    height:80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+
+}
+.templates{
+    box-sizing: border-box;
+    width:80%;
+    height:80%;
+    background-color:white;
+    border:0.5rem solid black;
+    box-shadow: 0.1rem 0.1rem 2rem 0.2rem gray;
+    border-radius: 1rem;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+}
+.template1, .template2, .template3, .template4, .template5{
+    background-color: white;
+    width:15%;
+    height:60%;
+    border:0.1rem solid black;
+    box-shadow: 0.1rem 0.1rem 2rem 0.2rem rgb(187, 187, 187);
+    display:flex;
+    align-items: flex-end;
+    justify-content: center;
+    transition:.3s;
+    position: relative;
+    overflow: hidden;
+}
+.template1:hover, .template2:hover, .template3:hover, .template4:hover, .template5:hover{
+    transform: translateY(-0.5rem);
+}
+.template2{
+    background-size: 100% 100%;
+    background-image:url("https://i2.wp.com/www.timvandevall.com/wp-content/uploads/2013/05/Lined-Paper-Template-13.jpg?ssl=1");
+}
+.template5{
+    background-image: linear-gradient(180deg, rgb(73, 73, 73), white);
+}
+.color1, .color2, .color3, .color4, .color5, .color6{
+    width:0.7vw;
+    height:0.7vw;
+    border-radius: 50%;
+    border:2px black solid;
+    margin:0.4rem;
+    margin-bottom: 1rem;
+    box-shadow: 0.1rem 0.1rem 0.2rem 0.2rem rgb(187, 187, 187);
+    transition:.3s;
+}
+.color1:hover, .color2:hover, .color3:hover, .color4:hover, .color5:hover, .color6:hover{
+
+    transform: scale(2);
+    border:1px solid white;
+}
+.color1{
+    background-color:  white;
+}
+
+.color2{
+    background-color: pink;
+}
+.color3{
+    background-color: yellow;
+}
+.color4{
+    background-color: skyblue;
+}
+.color5{
+    background-color: lime;
+}
+.color6{
+    background-color: rgb(73, 73, 73);
+}
+.design1{
+    position: absolute;
+    width:100%;
+    height:80%;
+    background-color: rgb(73, 73, 73);
+    top:-60%;
+    transform-origin: bottom;
+    transform: skewY(10deg);
+
+}
+.design2{
+    position: absolute;
+    width:100%;
+    height:80%;
+    background-color: rgb(73, 73, 73);
+    top:-60%;
+}
+.design3a{
+    position: absolute;
+    width:100%;
+    height:100%;
+    background-color: rgb(73, 73, 73);
+    /* top:-60%; */
+    top:-60%;
+    transform: rotateX(45deg);
+    border-radius: 2rem;
+}
+.design3b{
+    position: absolute;
+    width:100%;
+    height:80%;
+    background-color: rgba(73, 73, 73, 0.4);
+    /* top:-60%; */
+    top:-40%;
+    transform: rotateX(45deg);
+    border-radius: 2rem;
+}
+.shine{
+    box-shadow: 0.1px 0.1px 5px 4px green;
+}
+
