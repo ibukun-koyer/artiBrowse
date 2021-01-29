@@ -46,6 +46,10 @@ function change_color_dynamically(color, paper, color_num) {
             paper.style.backgroundColor = temp_storage;
             paper.style.transition = transition_speed;
         });
+        color.addEventListener("click", (event) => {
+            temp_storage = color_num;
+            paper.style.backgroundColor = color_num;
+        });
     }
     if (paper.getAttribute("class").indexOf("template3") !== -1) {
         color.addEventListener("mouseenter", (event) => {
@@ -56,6 +60,10 @@ function change_color_dynamically(color, paper, color_num) {
         color.addEventListener("mouseleave", (event) => {
             paper.children[0].style.backgroundColor = temp_storage;
             paper.children[0].style.transition = transition_speed;
+        });
+        color.addEventListener("click", (event) => {
+            temp_storage = color_num;
+            paper.children[0].style.backgroundColor = color_num;
         });
     }
     if (paper.getAttribute("class").indexOf("template5") !== -1) {
@@ -68,13 +76,35 @@ function change_color_dynamically(color, paper, color_num) {
             paper.style.backgroundImage = temp_storage;
             paper.style.transition = transition_speed;
         });
+        color.addEventListener("click", (event) => {
+            temp_storage = color_num;
+            paper.style.backgroundImage = color_num;
+        });
     }
+
 }
 
 let papers = document.querySelector(".templates");
 if (papers.childElementCount !== 0) {
     papers = Array.from(papers.children);
     papers.forEach((paper) => {
+        paper.addEventListener("click", (event) => {
+            const del_col = paper.children;
+            console.dir(del_col);
+            //parse for color
+            for (let i = del_col.length - 1; i >= 0; i--) {
+                if (del_col[i].getAttribute("class").indexOf("color") !== -1) {
+                    del_col[i].remove();
+                }
+            }
+            const newdoc = document.createElement("input");
+            newdoc.setAttribute("name", "template");
+            newdoc.setAttribute("value", paper.outerHTML);
+            newdoc.classList.add("hidden");
+            paper.append(newdoc);
+            event.target.submit();
+
+        })
         let colors = Array.from(paper.children);
         if (colors !== 0) {
             colors.forEach((color) => {

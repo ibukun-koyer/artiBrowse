@@ -5,4 +5,8 @@ router.route("/")
         res.render("choose_template");
 
     });
+
+router.post("/new", (req, res) => {
+    res.send(req.body);
+})
 module.exports = router;
