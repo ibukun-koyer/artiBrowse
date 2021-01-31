@@ -89,20 +89,28 @@ if (papers.childElementCount !== 0) {
     papers = Array.from(papers.children);
     papers.forEach((paper) => {
         paper.addEventListener("click", (event) => {
-            const del_col = paper.children;
-            console.dir(del_col);
-            //parse for color
-            for (let i = del_col.length - 1; i >= 0; i--) {
-                if (del_col[i].getAttribute("class").indexOf("color") !== -1) {
-                    del_col[i].remove();
+            const title = document.querySelector(".container-sm #title_");
+            title.classList.add("hidden");
+            console.dir(event.target);
+            if (event.target.getAttribute("class").indexOf("template") !== -1) {
+                const del_col = paper.children;
+                console.dir(del_col);
+                //parse for color
+                for (let i = del_col.length - 1; i >= 0; i--) {
+                    if (del_col[i].getAttribute("class").indexOf("color") !== -1) {
+                        del_col[i].remove();
+                    }
                 }
+                const newdoc = document.createElement("input");
+                newdoc.setAttribute("name", "template");
+                newdoc.setAttribute("value", paper.outerHTML);
+                newdoc.classList.add("hidden");
+                paper.append(newdoc);
+                title.value = title.value === "" ? "untitled" : title.value;
+
+                paper.append(title);
+                event.target.submit();
             }
-            const newdoc = document.createElement("input");
-            newdoc.setAttribute("name", "template");
-            newdoc.setAttribute("value", paper.outerHTML);
-            newdoc.classList.add("hidden");
-            paper.append(newdoc);
-            event.target.submit();
 
         })
         let colors = Array.from(paper.children);

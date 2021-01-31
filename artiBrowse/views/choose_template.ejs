@@ -1,8 +1,29 @@
 <%layout("boiler")%>
     <%-include("nav")%>
         <main class=gradientBkg>
-            <div class="template">
+
+            <div class="container-sm">
+                <label for="title_" class="textDecor"><i>Please provide a title...</i></label>
+                <ul>
+                    <li>This would automatically be named "untitled" if no article name is provided</li>
+                    <li>All character inputs are valid</li>
+                </ul>
+                <input type="text" name="text" id="title_" class="textarea bound" placeholder="Name of article...">
             </div>
+
+            <div class="container-sm">
+                <i>
+                    <div class="template">
+                    </div>
+                </i>
+                <ul>
+                    <li>Hover over any color to view the template</li>
+                    <li>Click on colors to pick that color for the template</li>
+                    <li>Select a template to proceed to the next page</li>
+                </ul>
+
+            </div>
+
             <div class="templateContainer">
                 <div class="templates">
                     <form action="/create_post/new" method="POST" class="template1">
@@ -66,4 +87,5 @@
                     </form>
                 </div>
             </div>
+
         </main>

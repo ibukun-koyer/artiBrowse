@@ -115,7 +115,7 @@ app.route("/login")
     .get((req, res) => {
         res.render("login");
     })
-    .post(passport.authenticate("local", { failureFlash: true, failureRedirect: "/login" }), (req, res) => {
+    .post(passport.authenticate("local", { failureFlash: true, failureRedirect: "login" }), (req, res) => {
         if (res.locals.prevUrl !== undefined) {
             res.redirect(res.locals.prevUrl);
         }
