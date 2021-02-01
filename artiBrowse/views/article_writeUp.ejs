@@ -1,2 +1,24 @@
 <%layout("boiler")%>
     <%-include("nav")%>
+        <div class="file_options">
+            <form action="/create_post/new/save_and_continue" method="post">
+                <button>Save and continue</button>
+            </form>
+            <form action="/create_post/new/save_and_discard" method="post">
+                <button>Save and discard</button>
+            </form>
+            <form action="/" method="GET">
+                <button>Discard</button>
+                <!--shouldnt be available after the user already saved-->
+            </form>
+
+        </div>
+        <div class="margin_btm">
+
+        </div>
+        <div class="center_template">
+            <div class="contains_template">
+                <%-article.template%>
+            </div>
+
+        </div>

@@ -588,8 +588,8 @@ nav a:hover{
 
     text-align: center;
     width: 100%;
-    padding:0.5rem;
-    margin:0.5rem;
+    /* padding:0.5rem; */
+    /* margin:0.5rem; */
 }
 .bars div:hover{
     border:none;

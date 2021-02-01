@@ -26,7 +26,8 @@ router.route("/new")
     })
     .get((req, res, next) => {
         if (req.session.article !== undefined) {
-            res.render("article_writeUp", req.session.article);
+
+            res.render("article_writeUp", { article: req.session.article });
         }
         throw (new error("Article does not exist", 400));
     });
