@@ -1,3 +1,5 @@
+
+
 const getTemplate = document.querySelector(".center_template form");
 const newText = document.createElement("textarea");
 newText.classList.add("one_hundred_percent_size");
@@ -13,107 +15,94 @@ cursor.innerText = "|";
 cursor.classList.add("blink");
 innerText.append(cursor);
 getTemplate.prepend(innerText);
-function fill_space(length, col) {
-    let str = "";
-    for (let i = length; i < col; i++) {
-        str = str + "*";
-    }
-    return str;
-}
 
-let identifier = 0;
-newText.addEventListener("input", (event) => {
-    //currently using a base assumption that the cursor is always at the end of the input
-    //would need to change that assumption later to include the fact that the cursor is moveable
-    const prev_cursor = document.querySelector(".blink").remove();
-    const innerText = document.querySelector(".abs");
-    let data = event.data;
-    console.log(event);
-    if ((event.data === null) && (event.inputType === "insertLineBreak")) {
-        data = "\n";
-    }
-    if ((event.data === null) && (event.inputType === "deleteContentBackward")) {
-        data = "\b";
-    }
-    if (data === " ") {
-        data = data.replace(" ", "<span class=\"invisible\">*</span>");
-    }
-    else if (data === "\t") {
-        data = data.replace("\t", "<span class=\"invisible\">****</span>");
-    }
-    //insert the new value
-    if (data !== "\b") {
-        innerText.innerHTML = innerText.innerHTML + data;
-    }
+let cursor_location = 0;
+function get_nth_index(index, data) {
+    let collection = [];
+    let curr_index = -1;
+    for (let i = 0; i < data.length; i++) {
 
-    if (data === "\n") {
-        //working on enter
-        let height = window.getComputedStyle(innerText).height;
-        let j = parseFloat(height);
-        let k = 0;
-        let changed = false;
-        console.log(j, parseFloat(height), height);
-        while (j === parseFloat(height)) {
-            if (k === 0) {
-                innerText.innerHTML = innerText.innerHTML.replace("\n", `<span class=\"invisible\" id=\"class${identifier}\">${fill_space(0, k + 1)}</span>`);
-            }
-            else {
-                innerText.innerHTML = innerText.innerHTML.replace(`<span class=\"invisible\" id=\"class${identifier}\">${fill_space(0, k)}</span>`, `<span class=\"invisible\" id=\"class${identifier}\">${fill_space(0, k + 1)}</span>`);
-            }
-            j = window.getComputedStyle(innerText).height;
-            j = parseFloat(j);
-            if (changed === false) {
-                height = `${j}`;
-                changed = true;
-            }
-            // if ((parseFloat(height) === 0) && (changed === false)) {
-            //     height = `${j}`;
-            //     changed = true;
-            // }
-            // else {
-            k++;
-            // }
+        if (data[i] === "<") {
+            collection.push(data[i]);
+            continue;
         }
-        if (changed === true) {
-            innerText.innerHTML = innerText.innerHTML.replace(`<span class=\"invisible\" id=\"class${identifier}\">${fill_space(0, k)}</span>`, `<span class=\"invisible\" id=\"class${identifier}\">${fill_space(0, k - 1)}</span>`);
-        }
-        // if (parseFloat(height) === parseFloat(window.getComputedStyle(innerText).height)) {
-        //     console.log("Back to previous height");
-        // }
-        height = `${j}`;
-        identifier++;
-
-    }
-    else if (data === "\b") {
-        let slice = innerText.innerHTML.length - 1;
-        if (slice >= 0) {
-
-            if (innerText.innerHTML[slice] === ">") {
-                for (let i = slice; i >= 0; i--) {
-                    if ((innerText.innerHTML[i] === "<") && (innerText.innerHTML[i + 1] !== "/")) {
-                        if (slice === 0) {
-                            innerText.innerHTML = "";
-                        }
-                        else {
-                            innerText.innerHTML = innerText.innerHTML.slice(0, slice - 1);
-                        }
-                        break;
-                    }
-                    else {
-                        slice--;
-                    }
-
+        else if (collection.length !== 0) {
+            if (data[i] === ">") {
+                collection.push(data[i]);
+                if (collection.toString().replaceAll(",", "") === "<br>") {
+                    curr_index++;
                 }
+                else if (collection.toString().replaceAll(",", "") === "<span class=\"invisible\">") {
+                    continue;
+                }
+                else if (collection.toString().replaceAll(",", "") === "<span class=\"invisible\">*</span>") {
+                    curr_index++;
+                    console.log(index, curr_index);
+                }
+
             }
             else {
-                innerText.innerHTML = innerText.innerHTML.slice(0, slice);
+                collection.push(data[i]);
+                continue;
             }
+            collection = [];
+        }
+        else {
+            curr_index++;
+        }
+        if (curr_index === index) {
+
+            return i;
         }
     }
+    return undefined;
+}
+//required fixes
+//---->>>in the get_nth_index, make sure that we check to see that entity code in the innerHTML is also accounted for, #____;
+//---->>>also fix the change_cursor function to allow cursor change w/o removing a value in the text
+function change_cursor() {
+    let middle = get_nth_index((innerText.innerText.length - 1) + cursor_location, innerText.innerHTML);
+    middle++;
+    innerText.innerHTML = innerText.innerHTML.slice(0, middle) + cursor.outerHTML + innerText.innerHTML.slice(middle, innerText.innerHTML.length - 1);
+}
+newText.addEventListener("input", (event) => {
+    innerText.innerHTML = newText.value;
+    innerText.innerHTML = innerText.innerHTML.replaceAll(" ", "<span class=\"invisible\">*</span>");
+    innerText.innerHTML = innerText.innerHTML.replaceAll("\n", "<br>");
+    change_cursor();
 
-    //insert the cursor
+});
+function cursor_position(dir) {
+    innerText.innerHTML = innerText.innerHTML.replaceAll(cursor.outerHTML, "");
+    if (dir === "right") {
+        if (cursor_location !== 0) {
+            cursor_location++;
+        }
+    }
+    else if (dir === "left") {
+        if (Math.abs(cursor_location) !== innerText.innerText.length) {
+            cursor_location--;
+        }
+    }
+    else if (dir === "up") {
 
-    innerText.append(cursor);
+    }
+    else if (dir === "down") {
 
-
+    }
+    change_cursor();
+}
+newText.addEventListener("keydown", (event) => {
+    if (event.code === "ArrowRight") {
+        cursor_position("right");
+    }
+    else if (event.code === "ArrowLeft") {
+        cursor_position("left");
+    }
+    else if (event.code === "ArrowUp") {
+        cursor_position("up");
+    }
+    else if (event.code === "ArrowDown") {
+        cursor_position("down");
+    }
 });
